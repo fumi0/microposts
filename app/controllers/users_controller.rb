@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
   
+  before_action :correct_user, only: [:edit, :update]
+
   def show 
    @user = User.find(params[:id])
    @microposts = @user.microposts.order(created_at: :desc)
@@ -31,6 +33,11 @@ class UsersController < ApplicationController
     else
       render 'edit'
     end
+  end
+  
+  def correct_user
+    @user = User.find(params[:id])
+    redirect_to root_url if @user != current_user
   end
     
  private
