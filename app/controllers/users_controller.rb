@@ -11,7 +11,7 @@ class UsersController < ApplicationController
     @user = User.new
   end
     
-    def create
+  def create
     @user = User.new(user_params)
     if @user.save
       flash[:success] = "Welcome to Sample App!"
@@ -35,15 +35,15 @@ class UsersController < ApplicationController
     end
   end
   
-  def correct_user
-    @user = User.find(params[:id])
-    redirect_to root_url if @user != current_user
-  end
-    
  private
 
   def user_params
     params.require(:user).permit(:name, :email, :password, :areas,
                                  :password_confirmation, )
+  end
+  
+  def correct_user
+    @user = User.find(params[:id])
+    redirect_to root_url if @user != current_user
   end
 end
